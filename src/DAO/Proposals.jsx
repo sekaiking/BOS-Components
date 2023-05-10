@@ -1,3 +1,4 @@
+const WIDGET_AUTHOR = "sking.near";
 const daoId = props.daoId ?? "multi.sputnik-dao.near";
 const proposalsPerPage = props.proposalsPerPage ?? 5; // Number of proposals to fetch at a time
 
@@ -61,8 +62,8 @@ return (
           {state.proposals.map((proposal, i) => (
             <Widget
               key={i}
-              src="hack.near/widget/DAO.Proposal"
-              props={{ daoId: state.daoId, id: proposal.id }}
+              src={WIDGET_AUTHOR + "/widget/DAO.Proposal"}
+              props={{ daoId: state.daoId, proposal: proposal }}
             />
           ))}
         </InfiniteScroll>
