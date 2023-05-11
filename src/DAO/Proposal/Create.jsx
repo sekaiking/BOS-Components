@@ -23,6 +23,10 @@ const Wrapper = styled.div`
   max-height: 100%;
   overflow-y: auto;
 
+  @media (max-width: 600px) {
+    border-radius: 0;
+  }
+
   p {
     line-height: 1.4;
     font-weight: 400;

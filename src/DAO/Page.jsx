@@ -273,7 +273,7 @@ return (
         )}
 
         {state.selectedTab === "rewards" && (
-          <Widget src="hack.near/widget/DAO.Rewards" props={{ daoId }} />
+          <Widget src="sking.near/widget/DAO.Rewards" props={{ daoId }} />
         )}
       </Content>
     </Main>

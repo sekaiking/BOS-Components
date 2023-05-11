@@ -4,7 +4,7 @@ if (!accountId) {
   return "Please connect your NEAR wallet :)";
 }
 
-const WIDGET_AUTHOR = "hack.near";
+const WIDGET_AUTHOR = "sking.near";
 const daoId = props.daoId ?? "multi.sputnik-dao.near";
 const bountiesPerPage = props.bountiesPerPage ?? 5; // Number of bounties to fetch at a time
 
@@ -50,27 +50,24 @@ const onChangeDAO = (newDaoId) => {
 
 return (
   <>
-    <div>
-      <h3>Available Rewards</h3>
-      <div className="mb-2">
-        <input
-          type="text"
-          placeholder="example.sputnik-dao.near"
-          onChange={(e) => onChangeDAO(e.target.value)}
-        />
-      </div>
+    <div className="mb-2">
+      <input
+        type="text"
+        placeholder="example.sputnik-dao.near"
+        onChange={(e) => onChangeDAO(e.target.value)}
+      />
+    </div>
 
-      <div>
-        <InfiniteScroll loadMore={loadBounties} hasMore={state.hasMore}>
-          {state.bounties.map((bounty, i) => (
-            <Widget
-              key={i}
-              src={WIDGET_AUTHOR + "/widget/DAO.Reward"}
-              props={{ daoId: state.daoId, bounty: bounty }}
-            />
-          ))}
-        </InfiniteScroll>
-      </div>
+    <div>
+      <InfiniteScroll loadMore={loadBounties} hasMore={state.hasMore}>
+        {state.bounties.map((bounty, i) => (
+          <Widget
+            key={i}
+            src={WIDGET_AUTHOR + "/widget/DAO.Reward"}
+            props={{ daoId: state.daoId, bounty: bounty }}
+          />
+        ))}
+      </InfiniteScroll>
     </div>
   </>
 );
