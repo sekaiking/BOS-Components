@@ -21,38 +21,6 @@ proposal.type = proposal.type.replace(/([A-Z])/g, " $1").trim(); // Add spaces b
 proposal.status = proposal.status.replace(/([A-Z])/g, " $1").trim(); // Add spaces between camelCase
 
 // ==============================
-// Functions
-// ==============================
-
-const handleApprove = () => {
-  Near.call([
-    {
-      contractName: daoId,
-      methodName: "act_proposal",
-      args: {
-        id: JSON.parse(proposal.id),
-        action: "VoteApprove",
-      },
-      gas: 200000000000000,
-    },
-  ]);
-};
-
-const handleReject = () => {
-  Near.call([
-    {
-      contractName: daoId,
-      methodName: "act_proposal",
-      args: {
-        id: JSON.parse(proposal.id),
-        action: "VoteReject",
-      },
-      gas: 200000000000000,
-    },
-  ]);
-};
-
-// ==============================
 // Styled Components
 // ==============================
 
@@ -295,11 +263,16 @@ return (
     <div className="d-flex gap-5 flex-wrap align-items-start">
       <RenderProposalArgs />
     </div>
-    <a className="btn btn-outline-success" onClick={handleApprove}>
-      Yes
-    </a>
-    <a className="btn btn-outline-danger" onClick={handleReject}>
-      No
-    </a>
+
+    <div className="w-100">
+      <h5>Votes</h5>
+      <Widget
+        src="sking.near/widget/DAO.Proposal.Vote"
+        props={{
+          daoId: daoId,
+          proposal: proposal,
+        }}
+      />
+    </div>
   </Wrapper>
 );
