@@ -229,10 +229,10 @@ return (
           </TabsButton>
 
           <TabsButton
-            href={`${accountUrl}&tab=following`}
-            selected={state.selectedTab === "following"}
+            href={`${accountUrl}&tab=rewards`}
+            selected={state.selectedTab === "rewards"}
           >
-            Following
+            Rewards
           </TabsButton>
         </Tabs>
 
@@ -254,7 +254,7 @@ return (
         )}
 
         {state.selectedTab === "proposals" && (
-          <Widget src="hack.near/widget/DAO.Proposals" props={{ daoId }} />
+          <Widget src="sking.near/widget/DAO.Proposals" props={{ daoId }} />
         )}
 
         {state.selectedTab === "members" && (
@@ -272,11 +272,8 @@ return (
           />
         )}
 
-        {state.selectedTab === "following" && (
-          <Widget
-            src="near/widget/FollowingList"
-            props={{ accountId: daoId }}
-          />
+        {state.selectedTab === "rewards" && (
+          <Widget src="hack.near/widget/DAO.Rewards" props={{ daoId }} />
         )}
       </Content>
     </Main>
