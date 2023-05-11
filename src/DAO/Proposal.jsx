@@ -195,7 +195,7 @@ const RenderProposalArgs = () => {
 
   if (
     proposal_type === "AddMemberToRole" ||
-    proposal_type === "RemoveMemberToRole"
+    proposal_type === "RemoveMemberFromRole"
   )
     return (
       <>
