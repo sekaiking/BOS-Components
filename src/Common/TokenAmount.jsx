@@ -11,7 +11,6 @@ if (address !== "") {
   if (ftMetadata === null) return null;
 }
 
-console.log(props);
 let amount = amountWithDecimals;
 if (amountWithoutDecimals !== undefined) {
   amount = Big(amountWithoutDecimals)
