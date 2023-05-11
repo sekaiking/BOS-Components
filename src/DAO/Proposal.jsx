@@ -67,7 +67,7 @@ const statusColor =
 
 const Wrapper = styled.div`
   margin: 16px auto;
-  max-width: 800px;
+  max-width: 900px;
   background-color: #fff;
   border-radius: 16px;
   padding: 24px;
@@ -121,10 +121,13 @@ const RenderProposalArgs = () => {
       <>
         <div>
           <h5>Amount</h5>
-          <p>
-            {proposal.kind.Transfer.amount}
-            {proposal.kind.Transfer.token_id === "" ? "NEAR" : ""}
-          </p>
+          <Widget
+            src="sking.near/widget/Common.TokenAmount"
+            props={{
+              amountWithoutDecimals: proposal.kind.Transfer.amount,
+              address: proposal.kind.Transfer.token_id,
+            }}
+          />
         </div>
         <div>
           <h5>Receiver</h5>
@@ -143,9 +146,13 @@ const RenderProposalArgs = () => {
     return proposal.kind.FunctionCall.actions.reduce(
       (acc, { method_name, args, deposit }) => {
         return acc.concat(
-          <div className="d-flex flex-wrap align-items-center" style={{
-            columnGap: "48px",
-          }}>
+          <div
+            className="d-flex flex-wrap align-items-start w-100"
+            style={{
+              columnGap: "48px",
+              rowGap: "16px",
+            }}
+          >
             <div>
               <h5>Smart Contract Address</h5>
               <p>{proposal.kind.FunctionCall.receiver_id}</p>
@@ -156,10 +163,16 @@ const RenderProposalArgs = () => {
             </div>
             <div>
               <h5>Deposit</h5>
-              <p>{deposit} NEAR</p>
+              <Widget
+                src="sking.near/widget/Common.TokenAmount"
+                props={{
+                  amountWithoutDecimals: deposit,
+                  address: "",
+                }}
+              />
             </div>
-            <div className="flex-fill w-100">
-              <h5>Args</h5>
+            <div className="w-100">
+              <h5>Arguments</h5>
               <Markdown
                 // Decode the args (Base64) to String then Parse the Json then format it and display it as markdown code
                 text={
@@ -208,10 +221,13 @@ const RenderProposalArgs = () => {
       <>
         <div>
           <h5>Amount</h5>
-          <p>
-            {proposal.kind.AddBounty.bounty.amount}
-            {proposal.kind.AddBounty.bounty.token_id === "" ? "NEAR" : ""}
-          </p>
+          <Widget
+            src="sking.near/widget/Common.TokenAmount"
+            props={{
+              amountWithoutDecimals: proposal.kind.AddBounty.bounty.amount,
+              address: proposal.kind.AddBounty.bounty.token,
+            }}
+          />
         </div>
         <div>
           <h5>Times</h5>
@@ -276,7 +292,7 @@ return (
       <h5>Description</h5>
       <p>{proposal.description}</p>
     </div>
-    <div className="d-flex gap-5 flex-wrap align-items-center">
+    <div className="d-flex gap-5 flex-wrap align-items-start">
       <RenderProposalArgs />
     </div>
     <a className="btn btn-outline-success" onClick={handleApprove}>
