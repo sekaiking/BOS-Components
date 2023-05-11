@@ -27,7 +27,7 @@ const handleApprove = () => {
       contractName: daoId,
       methodName: "act_proposal",
       args: {
-        id: JSON.parse(proposal.id),
+        id: JSON.parse(props.proposal.id),
         action: "VoteApprove",
       },
       gas: 200000000000000,
@@ -41,7 +41,7 @@ const handleReject = () => {
       contractName: daoId,
       methodName: "act_proposal",
       args: {
-        id: JSON.parse(proposal.id),
+        id: JSON.parse(props.proposal.id),
         action: "VoteReject",
       },
       gas: 200000000000000,
