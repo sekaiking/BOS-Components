@@ -5,36 +5,6 @@ State.init({
   showCreateProposal: false,
 });
 
-const ButtonLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 32px;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 15px;
-  text-align: center;
-  cursor: pointer;
-  background: #fbfcfd;
-  border: 1px solid #d7dbdf;
-  white-space: nowrap;
-  color: ${(p) => (p.primary ? "#006ADC" : "#11181C")} !important;
-  padding: 8px 32px;
-
-  &:hover,
-  &:focus {
-    background: #ecedee;
-    text-decoration: none;
-    outline: none;
-  }
-
-  @media (max-width: 1200px) {
-    padding: 8px 16px;
-  }
-`;
-
 const PopupWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -61,16 +31,22 @@ const PopupWrapper = styled.div`
 
 return (
   <>
-    <div className="d-flex justify-content-between flex-wrap">
-      <h3>
-        DAO Rewards
-      </h3>
-      <ButtonLink
-        onClick={() => State.update({ ...state, showCreateProposal: true })}
-      >
-        <i className="bi bi-16 bi-plus-lg"></i>
-        Propose Bounty
-      </ButtonLink>
+    <div className="d-flex justify-content-between flex-wrap mb-3">
+      <h3>DAO Bounties</h3>
+      <Widget
+        src="sking.near/widget/Common.Button"
+        props={{
+          children: (
+            <>
+              <i className="bi bi-16 bi-plus-lg"></i>
+              Propose Bounty
+            </>
+          ),
+          onClick: () => State.update({ ...state, showCreateProposal: true }),
+          className: "mt-2",
+          variant: "success",
+        }}
+      />
     </div>
 
     <Widget

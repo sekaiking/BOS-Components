@@ -113,6 +113,9 @@ const VoteButton = styled.button`
 
   ${canVote &&
     `
+    &:focus .count {
+      outline: 2px solid #000;
+    }
     &:hover .count, &:focus .count {
       max-width: 100%;
       cursor: pointer;

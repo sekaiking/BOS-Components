@@ -12,7 +12,9 @@ State.init({
 
 const Wrapper = styled.div`
   margin: 16px auto;
+  width: 100%;
   max-width: 900px;
+  max-height: 100%;
   background-color: #fff;
   border-radius: 16px;
   padding: 24px;
@@ -20,7 +22,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-height: 100%;
   overflow-y: auto;
 
   @media (max-width: 600px) {
@@ -70,12 +71,16 @@ const CloseButton = styled.button`
 
 const proposalTypes = [
   {
-    text: "Vote",
+    text: "Text",
     value: "Vote",
   },
   {
     text: "Transfer",
     value: "Transfer",
+  },
+  {
+    text: "Call Smart Contract",
+    value: "FunctionCall",
   },
   {
     text: "Add Member To Role",
@@ -84,10 +89,6 @@ const proposalTypes = [
   {
     text: "Remove Member From Role",
     value: "RemoveMemberFromRole",
-  },
-  {
-    text: "Function Call",
-    value: "FunctionCall",
   },
 ];
 
@@ -146,22 +147,36 @@ return (
         />
       </div>
     </div>
-    <div>
-      <h5>Arguments</h5>
+    <div className="d-flex flex-column gap-2">
       {state.proposalType.value === "Vote" && (
-        <Widget src="hack.near/widget/CreatePoll" props={{ daoId }} />
+        <Widget
+          src="sking.near/widget/DAO.Proposal.Create.Text"
+          props={{ daoId, onClose }}
+        />
       )}
       {state.proposalType.value === "Transfer" && (
-        <Widget src="hack.near/widget/TransferProposal" props={{ daoId }} />
+        <Widget
+          src="sking.near/widget/DAO.Proposal.Create.Transfer"
+          props={{ daoId, onClose }}
+        />
       )}
       {state.proposalType.value === "AddMemberToRole" && (
-        <Widget src="hack.near/widget/AddMemberToRole" props={{ daoId }} />
+        <Widget
+          src="sking.near/widget/DAO.Proposal.Create.AddMemberToRole"
+          props={{ daoId, onClose }}
+        />
       )}
       {state.proposalType.value === "RemoveMemberFromRole" && (
-        <Widget src="hack.near/widget/RemoveMemberFromRole" props={{ daoId }} />
+        <Widget
+          src="sking.near/widget/DAO.Proposal.Create.RemoveMemberFromRole"
+          props={{ daoId, onClose }}
+        />
       )}
       {state.proposalType.value === "FunctionCall" && (
-        <Widget src="hack.near/widget/FunctionCall" props={{ daoId }} />
+        <Widget
+          src="sking.near/widget/DAO.Proposal.Create.FunctionCall"
+          props={{ daoId, onClose }}
+        />
       )}
     </div>
   </Wrapper>

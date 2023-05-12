@@ -4,16 +4,8 @@ const daoId = props.daoId ?? "multi.sputnik-dao.near";
 
 const bounty = props.bounty ?? {
   id: 888,
-  description: `
-  #### Bounty Title Here
-  ##### Description
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod
-  semper nisi, sit amet dictum mauris. Nulla facilisi. Nulla facilisi.
-  Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. 
-
-  ##### Requirements
-  Example of **markdown** *code* with an [url](example.com)
-  `,
+  description:
+    "# [Bounty Title Here]\n\n## Description\n\n[Detailed description of what the bounty entails. What needs to be done, any specific requirements or skills needed, etc.]\n\n## Acceptance Criteria\n\n[What should be delivered upon the completion of the bounty? Be specific and clear about what you expect.]\n\n## Steps to Claim\n\n[Explanation of the procedure to claim the bounty. Step by step guide on what needs to be done to complete the bounty and how to submit the work.]\n\n## Additional Information\n\n[If applicable, include any additional information or resources relevant to the bounty. It could be helpful links, tips, or contacts.]",
   times: 1,
   amount: "1000000000000000000000000",
   max_deadline: "86400000000000",
@@ -128,25 +120,63 @@ const Button = styled.div`
   width: 100%;
 `;
 
-const ButtonLink = styled.a`
-  padding: 8px;
-  height: 32px;
-  border: 1px solid #d7dbdf;
-  border-radius: 100px;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 15px;
-  text-align: center;
-  cursor: pointer;
-  color: ${(p) => (p.primary ? "#006ADC" : "#11181C")} !important;
-  background: #fbfcfd;
-  white-space: nowrap;
+const MarkdownContainer = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  background-color: #f8f9fa;
+  color: #1b1b18;
+  border-radius: 16px;
+  max-height: 800px;
+  overflow-y: auto;
+  color: #333;
+  line-height: 1.6;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 
-  &:hover,
-  &:focus {
-    background: #ecedee;
+  h1 {
+    font-size: 2em;
+    color: #111;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    color: #222;
+    margin-bottom: 0.75em;
+  }
+
+  h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 0.6em;
+  }
+
+  h4 {
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 0.5em;
+  }
+
+  h5 {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 0.4em;
+  }
+
+  p {
+    font-size: 1em !important;
+    margin-bottom: 1em !important;
+  }
+
+  a {
+    color: #0645ad;
     text-decoration: none;
-    outline: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -158,7 +188,9 @@ return (
   <Wrapper>
     <div className="w-100">
       <h5>Bounty ID: {bounty.id}</h5>
-      <Markdown text={bounty.description} />
+      <MarkdownContainer>
+        <Markdown text={bounty.description} />
+      </MarkdownContainer>
     </div>
     <div className="d-flex flex-wrap gap-5">
       <div>
@@ -178,15 +210,31 @@ return (
     </div>
     <CardFooter>
       {!claims.length > 0 && (
-        <ButtonLink onClick={handleClaim}>
-          Claim ({bounty.times - claims.length} left)
-        </ButtonLink>
+        <Widget
+          src="sking.near/widget/Common.Button"
+          props={{
+            children: <>Claim ({bounty.times - claims.length} left)</>,
+            onClick: handleClaim,
+          }}
+        />
       )}
       {claims.length > 0 && (
-        <ButtonLink onClick={handleSubmit}>Submit</ButtonLink>
+        <Widget
+          src="sking.near/widget/Common.Button"
+          props={{
+            children: <>Submit</>,
+            onClick: handleSubmit,
+          }}
+        />
       )}
       {claims.length > 0 && (
-        <ButtonLink onClick={handleUnclaim}>Unclaim</ButtonLink>
+        <Widget
+          src="sking.near/widget/Common.Button"
+          props={{
+            children: <>Unclaim</>,
+            onClick: handleUnclaim,
+          }}
+        />
       )}
     </CardFooter>
   </Wrapper>

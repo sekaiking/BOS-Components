@@ -59,8 +59,8 @@ const Wrapper = styled.div`
   }
 
   h5 {
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1.2;
     color: #6c757d;
   }
@@ -73,9 +73,65 @@ const Wrapper = styled.div`
   }
 `;
 
-/**
- * Determine the proposal's arguments to show in the UI depending on its kind https://github.com/near-daos/sputnik-dao-contract/blob/2b19edb50e4542e1b8a6769023f2318c70255ee9/sputnikdao2/src/proposals.rs#L62
- */
+const MarkdownContainer = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  background-color: #f8f9fa;
+  color: #1b1b18;
+  border-radius: 16px;
+  max-height: 800px;
+  overflow-y: auto;
+  color: #333;
+  line-height: 1.6;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
+  h1 {
+    font-size: 2em;
+    color: #111;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    color: #222;
+    margin-bottom: 0.75em;
+  }
+
+  h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 0.6em;
+  }
+
+  h4 {
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 0.5em;
+  }
+
+  h5 {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 0.4em;
+  }
+
+  p {
+    font-size: 1em;
+    margin-bottom: 1em;
+  }
+
+  a {
+    color: #0645ad;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+`;
 
 const RenderProposalArgs = () => {
   const proposal_type =
@@ -258,7 +314,12 @@ return (
     </div>
     <div>
       <h5>Description</h5>
-      <p>{proposal.description}</p>
+      {proposal.type !== "Vote" && <p>{proposal.description}</p>}
+      {proposal.type === "Vote" && (
+        <MarkdownContainer>
+          <Markdown text={proposal.description} />
+        </MarkdownContainer>
+      )}
     </div>
     <div className="d-flex gap-5 flex-wrap align-items-start">
       <RenderProposalArgs />

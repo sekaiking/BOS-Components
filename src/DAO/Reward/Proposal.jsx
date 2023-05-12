@@ -12,8 +12,6 @@ State.init({
   amount: state.amount,
   times: state.times,
   max_deadline: state.max_deadline,
-  deposit: state.deposit,
-  gas: state.gas,
 });
 
 const handleProposal = () => {
@@ -24,8 +22,8 @@ const handleProposal = () => {
     times: JSON.parse(state.times),
     max_deadline: JSON.stringify(state.max_deadline * 3600000000000),
   };
-  const gas = state.gas ?? 200000000000000;
-  const deposit = state.deposit ?? 100000000000000000000000;
+  const gas = 200000000000000;
+  const deposit = 100000000000000000000000;
   Near.call([
     {
       contractName: daoId,
@@ -73,18 +71,6 @@ const onChangeTimes = (times) => {
 const onChangeDeadline = (max_deadline) => {
   State.update({
     max_deadline,
-  });
-};
-
-const onChangeDeposit = (deposit) => {
-  State.update({
-    deposit,
-  });
-};
-
-const onChangeGas = (gas) => {
-  State.update({
-    gas,
   });
 };
 
@@ -146,6 +132,9 @@ const CloseButton = styled.button`
   }
 `;
 
+const defaultBountyDescription =
+  "# [Bounty Title Here]\n\n## Description\n\n[Detailed description of what the bounty entails. What needs to be done, any specific requirements or skills needed, etc.]\n\n## Acceptance Criteria\n\n[What should be delivered upon the completion of the bounty? Be specific and clear about what you expect.]\n\n## Steps to Claim\n\n[Explanation of the procedure to claim the bounty. Step by step guide on what needs to be done to complete the bounty and how to submit the work.]\n\n## Additional Information\n\n[If applicable, include any additional information or resources relevant to the bounty. It could be helpful links, tips, or contacts.]";
+
 return (
   <Wrapper>
     <div className="d-flex justify-content-between align-items-center">
@@ -180,7 +169,7 @@ return (
         props={{
           onChange: (value) => onChangeDescription(value),
           height: "270px",
-          initialText: `#### [Replace this with your bounty title]\n\n##### Description\n\n##### Acceptance Criteria\n\n##### Steps to Claim\n\n##### Additional Information\n`,
+          initialText: defaultBountyDescription,
         }}
       />
     </div>
@@ -223,28 +212,27 @@ return (
         />
       </div>
     </div>
-    <div className="row">
-      <div className="col-sm">
-        <h5>Deposit</h5>
-        <input
-          type="number"
-          onChange={(e) => onChangeDeposit(e.target.value)}
-          min="0"
-          placeholder="0"
+    {state.error && <div className="text-danger">{state.error}</div>}
+    <div className="ms-auto">
+      <Widget
+        src="sking.near/widget/Common.Button"
+        props={{
+          children: "Propose Bounty",
+          onClick: handleProposal,
+          className: "mt-2",
+          variant: "success",
+        }}
+      />
+      {onClose && (
+        <Widget
+          src="sking.near/widget/Common.Button"
+          props={{
+            children: "Close",
+            onClick: onClose,
+            className: "mt-2",
+          }}
         />
-      </div>
-      <div className="col-sm">
-        <h5>Gas</h5>
-        <input
-          type="number"
-          onChange={(e) => onChangeGas(e.target.value)}
-          min="0"
-          placeholder="0"
-        />
-      </div>
+      )}
     </div>
-    <button className="btn btn-success" onClick={handleProposal}>
-      Propose Bounty
-    </button>
   </Wrapper>
 );
