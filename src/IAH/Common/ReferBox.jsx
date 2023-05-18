@@ -54,13 +54,13 @@ return (
     <div className="text-center mb-3">
       <a
         href={
-          "https://test.near.org/sking.near/widget/IAH.Signup?referrer=" +
+          "https://near.org/sking.near/widget/IAH.Signup?referrer=" +
           accountId
         }
         target="_blank"
         rel="noreferrer"
       >
-        https://test.near.org/sking.near/widget/IAH.Signup?referrer={accountId}
+        https://near.org/sking.near/widget/IAH.Signup?referrer={accountId}
       </a>
     </div>
     <Hr />
