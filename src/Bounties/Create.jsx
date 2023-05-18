@@ -25,7 +25,7 @@ const saveBounty = ({
         status: "open",
         description: description,
         deadline: deadline,
-        reward: reward,
+        reward: Number(reward || 0),
       },
     },
     index: {

@@ -40,23 +40,9 @@ const GigCard = styled.div`
     border-bottom: 1px solid #e6e6e6;
   }
 
-  ${state.is_expanded
-    ? `
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    box-shadow: none;
-    z-index: 100;
-    border-left: none;
-    border-radius: 2rem;
-    margin: auto;
-    margin-bottom: 2rem;
-  `
-    : `    
+  ${!props.is_expanded &&
+  ` 
     cursor: pointer;
-
     &:hover {
       text-decoration: none;
       color: #1b1b18;
@@ -80,7 +66,8 @@ const Container = styled.div`
 const ItemsRow = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  row-gap: 8px;
+  column-gap: 38px;
   flex-wrap: wrap;
 `;
 
@@ -92,200 +79,187 @@ const TagsList = styled.div`
   flex-wrap: wrap;
 `;
 
-// State
-
-State.init({ is_expanded: false });
-
-// functions
-
-const handleExpandToggle = (is_expanded) => {
-  State.update({ is_expanded: is_expanded });
-  window.scrollTo(0, 0);
-};
-
 // renderer
-console.log(props);
+const Title = props.title && (
+  <Widget
+    src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+    props={{ text: props.title, variant: "bigHeader" }}
+  />
+);
+const CreatedBy = props.creator && (
+  <div>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Created by",
+        variant: "tinyHeader",
+      }}
+    />
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: props.creator,
+        variant: "label",
+      }}
+    />
+  </div>
+);
+const CreatedAt = props.createdAt && (
+  <div>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Created at",
+        variant: "tinyHeader",
+      }}
+    />
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: createdAt,
+        variant: "label",
+      }}
+    />
+  </div>
+);
+const Status = props.status && (
+  <div>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Status",
+        variant: "tinyHeader",
+      }}
+    />
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: props.status,
+        variant: "label",
+      }}
+    />
+  </div>
+);
+const Skills = props.skills && (
+  <div>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Skills",
+        variant: "tinyHeader",
+      }}
+    />
+    <TagsList>
+      {props.skills.map((skill) => (
+        <Widget
+          src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+          props={{
+            text: skill,
+            variant: "label",
+          }}
+        />
+      ))}
+    </TagsList>
+  </div>
+);
+const ExperienceLevel = props.experienceLevel && (
+  <div>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Experience Level",
+        variant: "tinyHeader",
+      }}
+    />
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: props.experienceLevel,
+        variant: "label",
+      }}
+    />
+  </div>
+);
+const Deadline = props.deadline && (
+  <div>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Deadline",
+        variant: "tinyHeader",
+      }}
+    />
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: deadline,
+        variant: "importantText",
+      }}
+    />
+  </div>
+);
+const Reward = props.bounty && (
+  <div
+    style={{
+      marginLeft: "auto",
+    }}
+  >
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Bounty",
+        variant: "tinyHeader",
+      }}
+    />
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Price`}
+      props={{
+        amount: props.bounty,
+        size: "medium",
+      }}
+    />
+  </div>
+);
+
+let Description = (
+  <>
+    <Widget
+      src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
+      props={{
+        text: "Description",
+        variant: "tinyHeader",
+      }}
+    />
+    {!props.description && <p>No description provided</p>}
+    {!props.is_expanded && description !== "" && (
+      <p>
+        {shortDescription}
+        <a href="#expand">Read more</a>
+      </p>
+    )}
+    {props.is_expanded && description !== "" && <Markdown text={description} />}
+  </>
+);
+
 return (
   <GigCard>
-    {state.is_expanded && (
-      <Container>
-        <Widget
-          src={`${widgetAuthor}/widget/Bounties.Components.CardHeader`}
-          props={{
-            widgetAuthor: widgetAuthor,
-            UIKingWidgetAuthor: UIKingWidgetAuthor,
-            onBack: () => handleExpandToggle(false),
-          }}
-        />
-      </Container>
-    )}
-    {state.is_expanded && <hr />}
-    <Container onClick={() => handleExpandToggle(true)}>
-      {props.title && (
-        <Widget
-          src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-          props={{ text: props.title, variant: "bigHeader" }}
-        />
-      )}
-      <ItemsRow>
-        <div>
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: "Created by",
-              variant: "tinyHeader",
-            }}
-          />
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: props.creator,
-              variant: "label",
-            }}
-          />
-        </div>
-        <div>
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: "Created at",
-              variant: "tinyHeader",
-            }}
-          />
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: createdAt,
-              variant: "label",
-            }}
-          />
-        </div>
-        <div>
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: "Status",
-              variant: "tinyHeader",
-            }}
-          />
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: status,
-              variant: "label",
-            }}
-          />
-        </div>
-      </ItemsRow>
-      <div>
-        <Widget
-          src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-          props={{
-            text: "Description",
-            variant: "tinyHeader",
-          }}
-        />
-
-        {!props.description && <p>No description provided</p>}
-        {!state.is_expanded && description !== "" && (
-          <p>
-            {shortDescription}
-            <a href="#expand">Read more</a>
-          </p>
-        )}
-        {state.is_expanded && description !== "" && (
-          <Markdown text={description} />
-        )}
+    <Container>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "8px",
+        }}
+      >
+        {Title}
+        <ItemsRow>{[CreatedBy, CreatedAt, Status]}</ItemsRow>
       </div>
+      <div>{Description}</div>
       <ItemsRow>
-        {props.skills && (
-          <div>
-            <Widget
-              src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-              props={{
-                text: "Skills",
-                variant: "tinyHeader",
-              }}
-            />
-            <TagsList>
-              {props.skills.map((skill) => (
-                <Widget
-                  src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-                  props={{
-                    text: skill,
-                    variant: "label",
-                  }}
-                />
-              ))}
-            </TagsList>
-          </div>
-        )}
-        {props.experienceLevel && (
-          <div>
-            <Widget
-              src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-              props={{
-                text: "Experience Level",
-                variant: "tinyHeader",
-              }}
-            />
-            <Widget
-              src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-              props={{
-                text: props.experienceLevel,
-                variant: "label",
-              }}
-            />
-          </div>
-        )}
-      </ItemsRow>
-      <ItemsRow>
-        <div>
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: "Deadline",
-              variant: "tinyHeader",
-            }}
-          />
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: deadline,
-              variant: "importantText",
-            }}
-          />
-        </div>
-        <div>
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Text`}
-            props={{
-              text: "Bounty",
-              variant: "tinyHeader",
-            }}
-          />
-          <Widget
-            src={`${UIKingWidgetAuthor}/widget/KingUI.Price`}
-            props={{
-              amount: props.bounty,
-              size: "medium",
-            }}
-          />
-        </div>
+        {[Skills, ExperienceLevel, Deadline]}
+        <div style={{ marginLeft: "auto" }}>{Reward}</div>
       </ItemsRow>
     </Container>
-    {state.is_expanded && <hr />}
-    {state.is_expanded && (
-      <Container>
-        <Widget
-          src={`${widgetAuthor}/widget/Bounties.Components.CardProposals`}
-          props={{
-            widgetAuthor: widgetAuthor,
-            UIKingWidgetAuthor: UIKingWidgetAuthor,
-            proposals: props.proposals,
-          }}
-        />
-      </Container>
-    )}
   </GigCard>
 );

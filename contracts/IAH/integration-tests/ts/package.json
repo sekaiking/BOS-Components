@@ -1,0 +1,15 @@
+{
+  "name": "nft-integration-tests-ts",
+  "version": "0.1.0",
+  "license": "(MIT AND Apache-2.0)",
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.1",
+    "ava": "^5.2.0",
+    "near-workspaces": "^3.3.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
