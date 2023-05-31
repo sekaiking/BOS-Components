@@ -147,7 +147,16 @@ return (
         community on NEAR and claim your free human NFT.
       </p>
       <div>
-        <Button href="#how-to-verify">Verify Now</Button>
+        {!isVerified && (
+          <Button
+            href="https://i-am-human.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Verify Now
+          </Button>
+        )}
+        {isVerified && <Button href="#how-to-verify">Claim NFT</Button>}
       </div>
 
       <Widget src="sking.near/widget/IAH.Common.WhatIs" />
