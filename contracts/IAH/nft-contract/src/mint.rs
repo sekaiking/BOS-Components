@@ -82,15 +82,15 @@ impl Contract {
         }
         let tokens: SBTokenData = call_result.unwrap();
         // check if the user is verified
-        let gd_contract_string = "gooddollar-v1.i-am-human.near".to_string();
+        let gd_contract_string = "fractal.i-am-human.near".to_string();
         let gd_contract = AccountId::try_from(gd_contract_string.clone()).unwrap();
 
-        // if it contains gooddollar-v1.i-am-human.testnet
+        // if it contains fractal.i-am-human.testnet
         let is_verified = tokens.iter().any(|(contract, _)| contract == &gd_contract);
 
         assert!(
             is_verified,
-            "The receiver is not verified on i-am-human contract"
+            "The receiver is not verified on i-am-human contract (using Fractal)"
         );
 
         // only one token can be minted per user
