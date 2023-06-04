@@ -1,5 +1,5 @@
 const accountId = props.accountId ?? context.accountId;
-const NFT_CONTRACT = "v0.humanft.near";
+const NFT_CONTRACT = "v1.humanft.near";
 
 const Wrapper = styled.div`
   display: flex;

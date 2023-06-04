@@ -1,8 +1,8 @@
 const referrer = props.referrer ?? Storage.privateGet("IAH.Signup.Referrer");
 const accountId = props.accountId ?? context.accountId;
-const NFT_CONTRACT = "v0.humanft.near";
+const NFT_CONTRACT = "v1.humanft.near";
 const IAH_CONTRACT = "registry.i-am-human.near";
-const GD_CONTRACT = "gooddollar-v1.i-am-human.near";
+const GD_CONTRACT = "fractal.i-am-human.near";
 const WIDGET_AUTHOR = "sking.near";
 
 if (!accountId) {
@@ -41,7 +41,7 @@ const tokens = Near.view(
     account: accountId,
   },
   undefined,
-  false
+  true
 );
 if (tokens === null) return "Loading...";
 

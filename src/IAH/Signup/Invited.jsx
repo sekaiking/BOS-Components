@@ -59,6 +59,28 @@ const Button = styled.a`
   }
 `;
 
+const Btn = styled.button`
+  display: block;
+  padding: 12px 36px;
+  border-radius: 20px;
+  background: none;
+  border: 2px solid #08cc86;
+  color: #08cc86;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  margin-right: auto;
+
+  &:hover {
+    text-decoration: none;
+    background: #08cc86;
+    color: #03080a;
+    transform: translateY(-2px);
+  }
+`;
+
 const Background = styled.div`
   position: fixed;
   top: 0;
@@ -156,7 +178,15 @@ return (
             Verify Now
           </Button>
         )}
-        {isVerified && <Button href="#how-to-verify">Claim NFT</Button>}
+        {isVerified && (
+          <Btn
+            onClick={() => {
+              onClaim();
+            }}
+          >
+            Claim My NFT
+          </Btn>
+        )}
       </div>
 
       <Widget src="sking.near/widget/IAH.Common.WhatIs" />
