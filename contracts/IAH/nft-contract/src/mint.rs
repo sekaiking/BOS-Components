@@ -57,7 +57,7 @@ impl Contract {
             registry_method,
             registry_args,
             0,
-            Gas(5 * TGAS),
+            Gas(8 * TGAS),
         );
 
         // schedule a callback to 'nft_mint_continue', with the deposit
@@ -157,6 +157,16 @@ impl Contract {
         let new_referred_count = self.referred_count.get(&referrer_id).unwrap_or(0) + 1;
         self.referred_count
             .insert(&referrer_id, &new_referred_count);
+
+        // add referred user to referrer's list
+        let mut referred_users =
+            self.users_by_referrer
+                .get(&referrer_id)
+                .unwrap_or(UnorderedSet::new(
+                    format!("{}_referred", referrer_id).as_bytes(),
+                ));
+        referred_users.insert(&receiver_id);
+        self.users_by_referrer.insert(&referrer_id, &referred_users);
     }
 
     fn internal_mint(

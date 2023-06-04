@@ -1,5 +1,5 @@
 const accountId = props.accountId ?? context.accountId;
-const NFT_CONTRACT = "v1.humanft.near";
+const NFT_CONTRACT = "v1a.humanft.near";
 
 const Wrapper = styled.div`
   display: flex;
@@ -99,10 +99,10 @@ return (
           </NFTContainer>
         </div>
       </div>
+      <div className="w-100 mb-3">
+        <Widget src="sking.near/widget/IAH.Common.InviteBox" />
+      </div>
       <div className="w-100 flex-wrap d-flex justify-content-center gap-3">
-        <div className="w-100 mb-3">
-          <Widget src="sking.near/widget/IAH.Common.InviteBox" />
-        </div>
         <Widget
           src="sking.near/widget/IAH.Common.LeaderBoard"
           props={{
@@ -110,13 +110,22 @@ return (
             NFT_CONTRACT: NFT_CONTRACT,
           }}
         />
-        <Widget
-          src="sking.near/widget/IAH.Common.ReferBox"
-          props={{
-            accountId: accountId,
-            NFT_CONTRACT: NFT_CONTRACT,
-          }}
-        />
+        <div className="d-flex flex-column gap-4">
+          <Widget
+            src="sking.near/widget/IAH.Common.ReferBox"
+            props={{
+              accountId: accountId,
+              NFT_CONTRACT: NFT_CONTRACT,
+            }}
+          />
+          <Widget
+            src="sking.near/widget/IAH.Common.ReferredList"
+            props={{
+              accountId: accountId,
+              NFT_CONTRACT: NFT_CONTRACT,
+            }}
+          />
+        </div>
       </div>
     </Wrapper>
   </>

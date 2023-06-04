@@ -1,17 +1,16 @@
 const accountId = props.accountId ?? context.accountId;
 const NFT_CONTRACT = props.NFT_CONTRACT;
 
-const leaderboard = Near.view(
+const userlist = Near.view(
   NFT_CONTRACT,
-  "referrals_leaderboard",
+  "users_by_referrer",
   {
-    from_index: 0,
-    limit: 100,
+    account_id: accountId,
   },
   undefined,
   false
 );
-console.log("leaderboard", leaderboard, NFT_CONTRACT);
+console.log("userlist", userlist, NFT_CONTRACT);
 
 const RowWrapper = styled.div`
   display: flex;
@@ -35,16 +34,14 @@ const RowWrapper = styled.div`
   }
 `;
 
-const Row = ({ accountId, score, rank }) => (
+const Row = ({ accountId }) => (
   <RowWrapper>
-    <div className="rank">{rank}</div>
     <a
       className="user"
       href={`#/near/widget/ProfilePage?accountId=${accountId}`}
     >
       {accountId}
     </a>
-    <div>{score}</div>
   </RowWrapper>
 );
 
@@ -63,14 +60,12 @@ const Wrapper = styled.div`
 
 return (
   <Wrapper>
-    <h3 className="text-center mb-3">Referral Leaderboard</h3>
-    {leaderboard.map((row, i) => (
-      <Row
-        key={i}
-        rank={i + 1}
-        accountId={row.account_id}
-        score={row.count}
-      />
+    <h3 className="text-center mb-3">Your Referral List</h3>
+    {userlist.map((row, i) => (
+      <Row key={i} accountId={row} />
     ))}
+    {userlist.length === 0 && (
+      <div className="text-center">No referrals yet</div>
+    )}
   </Wrapper>
 );

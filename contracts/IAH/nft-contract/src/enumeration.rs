@@ -10,6 +10,23 @@ pub struct JsonReferral {
 
 #[near_bindgen]
 impl Contract {
+    pub fn users_by_referrer(
+        &self,
+        account_id: AccountId,
+        from_index: Option<u64>,
+        limit: Option<u64>,
+    ) -> Vec<AccountId> {
+        let start = from_index.unwrap_or(0) as usize;
+        let limit = limit.unwrap_or(100) as usize;
+        self.users_by_referrer
+            .get(&account_id)
+            .unwrap_or(UnorderedSet::new(account_id.as_bytes()))
+            .iter()
+            .skip(start)
+            .take(limit)
+            .collect::<Vec<AccountId>>()
+    }
+
     pub fn referral_count_for_user(&self, account_id: AccountId) -> u32 {
         self.referred_count.get(&account_id).unwrap_or(0)
     }

@@ -52,6 +52,9 @@ pub struct Contract {
 
     //keeps track of how many users have been reffered by accountId
     pub referred_count: UnorderedMap<AccountId, u32>,
+
+    //
+    pub users_by_referrer: UnorderedMap<AccountId, UnorderedSet<AccountId>>,
 }
 
 /// Helper structure for keys of the persistent collections.
@@ -67,6 +70,7 @@ pub enum StorageKey {
     TokenTypesLocked,
     VerifiedAccounts,
     ReferredCount,
+    UsersByReferrer,
 }
 
 #[near_bindgen]
@@ -117,9 +121,8 @@ impl Contract {
             verified_accounts: UnorderedSet::new(
                 StorageKey::VerifiedAccounts.try_to_vec().unwrap(),
             ),
-            referred_count: UnorderedMap::new(
-                StorageKey::ReferredCount.try_to_vec().unwrap(),
-            ),
+            referred_count: UnorderedMap::new(StorageKey::ReferredCount.try_to_vec().unwrap()),
+            users_by_referrer: UnorderedMap::new(StorageKey::UsersByReferrer.try_to_vec().unwrap()),
         };
 
         //return the Contract object
