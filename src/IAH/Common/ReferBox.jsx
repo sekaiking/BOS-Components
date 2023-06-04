@@ -1,6 +1,8 @@
 const accountId = props.accountId ?? context.accountId;
 const NFT_CONTRACT = props.NFT_CONTRACT;
 
+const isLogged = !!accountId;
+
 const user_score = Near.view(
   NFT_CONTRACT,
   "referral_count_for_user",
@@ -48,14 +50,11 @@ return (
       human verification.
     </p>
     <h4 className="text-center mb-3">Or</h4>
-    <p className="text-center mb-3">
-      Send them the link below:
-    </p>
+    <p className="text-center mb-3">Send them the link below:</p>
     <div className="text-center mb-3">
       <a
         href={
-          "https://near.org/sking.near/widget/IAH.Signup?referrer=" +
-          accountId
+          "https://near.org/sking.near/widget/IAH.Signup?referrer=" + accountId
         }
         target="_blank"
         rel="noreferrer"
@@ -63,8 +62,12 @@ return (
         https://near.org/sking.near/widget/IAH.Signup?referrer={accountId}
       </a>
     </div>
-    <Hr />
-    <h4 className="text-center mb-3">Your referral score: {user_score}</h4>
-    <h4 className="text-center mb-3">Your referral rank: {user_rank}</h4>
+    {isLogged && (
+      <>
+        <Hr />
+        <h4 className="text-center mb-3">Your referral score: {user_score}</h4>
+        <h4 className="text-center mb-3">Your referral rank: {user_rank}</h4>
+      </>
+    )}
   </Wrapper>
 );

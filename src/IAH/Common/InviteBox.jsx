@@ -1,5 +1,10 @@
 const accountId = props.accountId ?? context.accountId;
 
+if (!accountId) {
+  // not logged in
+  return <h5 className="text-center">Please login to invite your friends</h5>;
+}
+
 State.init({
   invitedId: "",
 });

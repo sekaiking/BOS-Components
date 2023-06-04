@@ -1,6 +1,11 @@
 const accountId = props.accountId ?? context.accountId;
 const NFT_CONTRACT = props.NFT_CONTRACT;
 
+if (!accountId) {
+  // not logged in
+  return "";
+}
+
 const userlist = Near.view(
   NFT_CONTRACT,
   "users_by_referrer",
